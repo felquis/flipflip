@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
 import {DeviceOrientation} from 'react-event-components'
+import firebase from 'firebase'
+import config from './config'
 import {
   LineChart,
   XAxis,
@@ -13,12 +15,15 @@ import {
   ResponsiveContainer
 } from 'recharts'
 
+const db
+
 class App extends Component {
   constructor () {
     super()
     this.state = {
       orientation: [],
       running: false,
+      user: JSON.parse(localStorage.getItem('flipflip-user') || '{}'),
     }
 
     this.handleDeviceOrientation = this.handleDeviceOrientation.bind(this)
@@ -36,9 +41,52 @@ class App extends Component {
       this.setState({ orientation: [] })
     }
 
+    if (this.state.running) {
+      const flips = flips.push().key
+      console.log('Should save to current user!')
+    }
+
     this.setState({
       running: !this.state.running
     })
+  }
+
+  componentDidMount () {
+    const db = firebase.initializeApp(config.firebase).database()
+
+    // if we id
+    if (this.state.user.key) {
+      const users = db.ref('users/' + this.state.user.key)
+
+      this.setState({
+        ...this.state,
+      })
+
+      return
+    }
+
+    // does not have id
+
+    const flips = users.child(this.state.user.key)
+
+    this.setState({
+      ...this.state, db: db
+    })
+
+    if (this.state.user.key) {}
+
+    const user = users.push()
+    const updates = {}
+
+    updates['users/' + user.key] = {
+      id: user.key,
+      created_at: (new Date()).toISOString(),
+      flips: []
+    }
+
+    localStorage.setItem('flipflip-user', JSON.stringify(updates['users/' + user.key]))
+
+    db.ref().update(updates)
   }
 
   render() {
