@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   handleDeviceOrientation = (ev) => {
-    console.log(ev)
+    // console.log(ev)
     this.setState({
       graph: [...this.state.graph, {x: this.state.trickTime, value: ev}]
     })
@@ -36,14 +36,14 @@ class App extends Component {
   }
 
   handleEvery (delta) {
-    console.log(this.state)
+    // console.log(this.state)
     this.setState({
       trickTime: this.state.trickTime + delta
     })
   }
 
   handleStartTrick () {
-    // console.log(this.state)
+    console.log(this.state)
     this.setState({
       startTrick: !this.state.startTrick
     })
@@ -52,13 +52,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.startTrick && (
+        {(this.state.startTrick)? (
             <div>
-              <Every frame do={this.handleEvery} />
+              <Every do={this.handleEvery} />
 
               <DeviceOrientation do={this.handleDeviceOrientation} />
             </div>
-        )}
+        ) : null}
 
         <p className="App-intro">
           {this.state.trickTime}ms
@@ -68,7 +68,7 @@ class App extends Component {
           <button onClick={this.handleStartTrick}>Start Trick</button>
         </p>
 
-        <p>
+          <div>
           <LineChart width={730} height={250} data={this.state.graph}>
             <XAxis dataKey="x" />
             <YAxis />
@@ -79,7 +79,7 @@ class App extends Component {
             <Line dataKey="value.beta" stroke="green" animationDuration={0} />
             <Line dataKey="value.gamma" stroke="red" animationDuration={0} />
           </LineChart>
-        </p>
+        </div>
       </div>
     );
   }
