@@ -18,7 +18,22 @@
   font-size: large;
 }
 
+.App-button {
+  padding: 1em;
+  border: 0;
+  background: transparent;
+  border: silver;
+}
+
+.App-button:hover {
+  background: silver;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.recharts-responsive-container > .recharts-wrapper {
+  transform: translateX(-1em);
 }

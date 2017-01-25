@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import {DeviceOrientation, Every} from 'react-event-components'
+import React, { Component } from 'react'
+import logo from './logo.svg'
+import './App.css'
+import {DeviceOrientation} from 'react-event-components'
 import {
   LineChart,
   XAxis,
@@ -9,80 +9,68 @@ import {
   CartesianGrid,
   Legend,
   Tooltip,
-  Line
+  Line,
+  ResponsiveContainer
 } from 'recharts'
 
 class App extends Component {
   constructor () {
     super()
     this.state = {
-      startTrick: false,
-      trickTime: 0,
-      graph: []
+      orientation: [],
+      running: false,
     }
 
-    this.handleEvery = this.handleEvery.bind(this)
     this.handleDeviceOrientation = this.handleDeviceOrientation.bind(this)
-    this.handleStartTrick = this.handleStartTrick.bind(this)
+    this.toggleRunning = this.toggleRunning.bind(this)
   }
 
-  handleDeviceOrientation = (ev) => {
-    // console.log(ev)
-    this.setState({
-      graph: [...this.state.graph, {x: this.state.trickTime, value: ev}]
-    })
+  handleDeviceOrientation = (orientation) => {
+    if (!this.state.running) return
 
-    // console.log(this.state.graph)
+    this.setState({ orientation: [...this.state.orientation, orientation] })
   }
 
-  handleEvery (delta) {
-    // console.log(this.state)
-    this.setState({
-      trickTime: this.state.trickTime + delta
-    })
-  }
+  toggleRunning () {
+    if (!this.state.running) {
+      this.setState({ orientation: [] })
+    }
 
-  handleStartTrick () {
-    console.log(this.state)
     this.setState({
-      startTrick: !this.state.startTrick
+      running: !this.state.running
     })
   }
 
   render() {
+    const {running, orientation} = this.state
+
     return (
       <div className="App">
-        {(this.state.startTrick)? (
-            <div>
-              <Every do={this.handleEvery} />
-
-              <DeviceOrientation do={this.handleDeviceOrientation} />
-            </div>
-        ) : null}
-
-        <p className="App-intro">
-          {this.state.trickTime}ms
-        </p>
+        <DeviceOrientation do={this.handleDeviceOrientation} />
 
         <p>
-          <button onClick={this.handleStartTrick}>Start Trick</button>
+          <button className="App-button" onClick={this.toggleRunning}>{running ? 'Stop': 'Start'} Trick</button>
         </p>
 
-          <div>
-          <LineChart width={730} height={250} data={this.state.graph}>
+        {!running || running ? (<ResponsiveContainer height={350} width="100%">
+          <LineChart
+            width={730}
+            height={250}
+            data={orientation}
+            margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
             <XAxis dataKey="x" />
             <YAxis />
             <CartesianGrid />
             <Tooltip />
             <Legend />
-            <Line dataKey="value.alpha" stroke="#19cade" animationDuration={0} />
-            <Line dataKey="value.beta" stroke="green" animationDuration={0} />
-            <Line dataKey="value.gamma" stroke="red" animationDuration={0} />
+            <Line dataKey="alpha" stroke="#19cade" animationDuration={0} />
+            <Line dataKey="beta" stroke="green" animationDuration={0} />
+            <Line dataKey="gamma" stroke="red" animationDuration={0} />
           </LineChart>
-        </div>
+        </ResponsiveContainer>): <div>Something Else</div>}
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
