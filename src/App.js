@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
 import './App.css'
 import {DeviceOrientation} from 'react-event-components'
 import firebase from 'firebase'
@@ -7,9 +6,7 @@ import {
   LineChart,
   XAxis,
   YAxis,
-  CartesianGrid,
   Legend,
-  Tooltip,
   Line,
   ResponsiveContainer
 } from 'recharts'
@@ -99,6 +96,7 @@ class App extends Component {
             margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
             <XAxis dataKey="x" />
             <YAxis />
+            <Legend />
             <Line dataKey="alpha" stroke="#19cade" animationDuration={0} />
             <Line dataKey="beta" stroke="green" animationDuration={0} />
             <Line dataKey="gamma" stroke="red" animationDuration={0} />
