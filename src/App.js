@@ -97,9 +97,9 @@ class App extends Component {
             <XAxis dataKey="x" />
             <YAxis />
             <Legend />
-            <Line dataKey="alpha" stroke="#19cade" animationDuration={0} />
-            <Line dataKey="beta" stroke="green" animationDuration={0} />
-            <Line dataKey="gamma" stroke="red" animationDuration={0} />
+            <Line dataKey="alpha" stroke="#19cade" animationDuration={0} dot={false}/>
+            <Line dataKey="beta" stroke="green" animationDuration={0} dot={false}/>
+            <Line dataKey="gamma" stroke="red" animationDuration={0} dot={false}/>
           </LineChart>
         </ResponsiveContainer>)}
       </div>
