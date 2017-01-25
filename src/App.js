@@ -47,10 +47,10 @@ class App extends Component {
   handleDeviceOrientation = (orientation) => {
     if (!this.state.running) return
 
-    const { alpha, gamma, absolute, timeStamp, type } = orientation
+    const { alpha, gamma, absolute, timeStamp, type, beta } = orientation
 
     const newOrientation = {
-      alpha, gamma, absolute, timeStamp, type
+      alpha, gamma, absolute, timeStamp, type, beta
     }
 
     this.setState({ orientation: [...this.state.orientation, newOrientation] })
