@@ -50,9 +50,10 @@ class App extends Component {
     if (!this.state.running) return
 
     const { alpha, gamma, absolute, timeStamp, type } = orientation
+    const userAgent = navigator.userAgent
 
     const newOrientation = {
-      alpha, gamma, absolute, timeStamp, type
+      alpha, gamma, absolute, timeStamp, type, fingerprint: { userAgent }
     }
 
     this.setState({ orientation: [...this.state.orientation, newOrientation] })
