@@ -95,7 +95,7 @@ class App extends Component {
             data={orientation}
             margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
             <XAxis dataKey="x" />
-            <YAxis />
+            <YAxis domain={[-100, 100]} />
             <Legend />
             <Line dataKey="alpha" stroke="#19cade" animationDuration={0} dot={false}/>
             <Line dataKey="beta" stroke="green" animationDuration={0} dot={false}/>
