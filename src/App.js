@@ -32,28 +32,28 @@ class App extends Component {
   }
 
   saveFlip (orientation) {
-     const flip = {
-       orientation
-     }
+    const userAgent = navigator.userAgent
 
-     const newFlip = firebase.database().ref().child('flips').push().key
-     const updates = {}
+    const flip = {
+      orientation,
+      fingerprint: { userAgent }
+    }
 
-     updates['/flips/' + newFlip] = flip
+    const newFlip = firebase.database().ref().child('flips').push().key
+    const updates = {}
 
-     console.log(flip)
+    updates['/flips/' + newFlip] = flip
 
-     return firebase.database().ref().update(updates)
+    return firebase.database().ref().update(updates)
   }
 
   handleDeviceOrientation = (orientation) => {
     if (!this.state.running) return
 
     const { alpha, gamma, absolute, timeStamp, type } = orientation
-    const userAgent = navigator.userAgent
 
     const newOrientation = {
-      alpha, gamma, absolute, timeStamp, type, fingerprint: { userAgent }
+      alpha, gamma, absolute, timeStamp, type
     }
 
     this.setState({ orientation: [...this.state.orientation, newOrientation] })
