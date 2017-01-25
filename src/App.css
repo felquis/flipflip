@@ -1,5 +1,12 @@
+html, body, #root, .App {
+  height: 100%;
+  margin: 0;
+}
+
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .App-logo {
@@ -20,13 +27,21 @@
 
 .App-button {
   padding: 1em;
-  border: 0;
-  background: transparent;
-  border: silver;
+  background: #0066ff;
+  border: 1px solid #0066ff;
+  border-radius: 9px;
+  color: white;
+  font-weight: bold;
+  transition: background 0.2s linear;
 }
 
 .App-button:hover {
-  background: silver;
+  background: #0248b1;
+  cursor: pointer;
+}
+
+.App-button:focus {
+  outline: solid 2px red;
 }
 
 @keyframes App-logo-spin {

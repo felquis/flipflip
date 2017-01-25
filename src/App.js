@@ -49,10 +49,10 @@ class App extends Component {
         <DeviceOrientation do={this.handleDeviceOrientation} />
 
         <p>
-          <button className="App-button" onClick={this.toggleRunning}>{running ? 'Stop': 'Start'} Trick</button>
+          <button className="App-button" onClick={this.toggleRunning}>{running ? 'Stop': 'Start New Recording'} Trick</button>
         </p>
 
-        {!running || running ? (<ResponsiveContainer height={350} width="100%">
+        {!running && (<ResponsiveContainer height="100%" width="100%">
           <LineChart
             width={730}
             height={250}
@@ -60,14 +60,11 @@ class App extends Component {
             margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
             <XAxis dataKey="x" />
             <YAxis />
-            <CartesianGrid />
-            <Tooltip />
-            <Legend />
             <Line dataKey="alpha" stroke="#19cade" animationDuration={0} />
             <Line dataKey="beta" stroke="green" animationDuration={0} />
             <Line dataKey="gamma" stroke="red" animationDuration={0} />
           </LineChart>
-        </ResponsiveContainer>): <div>Something Else</div>}
+        </ResponsiveContainer>)}
       </div>
     )
   }
