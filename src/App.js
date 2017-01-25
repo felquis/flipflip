@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {DeviceOrientation, Every} from 'react-event-components'
+import {DeviceOrientation} from 'react-event-components'
 import {
   LineChart,
   XAxis,
@@ -43,7 +43,8 @@ class App extends Component {
   }
 
   handleStartTrick () {
-    console.log(this.state)
+    // console.log(this.state)
+
     this.setState({
       startTrick: !this.state.startTrick
     })
@@ -52,20 +53,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {(this.state.startTrick)? (
-            <div>
-              <Every do={this.handleEvery} />
-
-              <DeviceOrientation do={this.handleDeviceOrientation} />
-            </div>
-        ) : null}
+        {this.state.startTrick ? (<RecordFlip />): null}
 
         <p className="App-intro">
           {this.state.trickTime}ms
         </p>
 
         <p>
-          <button onClick={this.handleStartTrick}>Start Trick</button>
+          <button onClick={this.handleStartTrick}>{this.state.startTrick? 'Stop' : 'Start'} Trick</button>
         </p>
 
           <div>
@@ -82,6 +77,18 @@ class App extends Component {
         </div>
       </div>
     );
+  }
+}
+
+class RecordFlip extends Component {
+  render () {
+    return (
+      <div>
+        <Every frame do={this.handleEvery} />
+
+        <DeviceOrientation do={this.handleDeviceOrientation} />
+      </div>
+    )
   }
 }
 
