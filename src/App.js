@@ -42,7 +42,7 @@ class App extends Component {
 
     updates['/flips/' + newFlip] = flip
 
-    // return firebase.database().ref().update(updates)
+    return firebase.database().ref().update(updates)
   }
 
   handleDeviceOrientation = (orientation) => {
