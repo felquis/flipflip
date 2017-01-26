@@ -45,7 +45,7 @@ class App extends Component {
     firebase.database().ref().update(updates)
   }
 
-  handleDeviceOrientation = (orientation) => {
+  handleDeviceOrientation (orientation) {
     if (!this.state.running) return
 
     const { alpha, gamma, absolute, timeStamp, type, beta } = orientation
