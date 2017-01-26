@@ -38,11 +38,10 @@ class App extends Component {
     }
 
     const newFlip = firebase.database().ref().child('flips').push().key
+
     const updates = {}
-
-    updates['/flips/' + newFlip] = flip
-
-    return firebase.database().ref().update(updates)
+    updates[`/flips/${this.state.uid}/${newFlip}`] = flip
+    firebase.database().ref().update(updates)
   }
 
   handleDeviceOrientation = (orientation) => {
