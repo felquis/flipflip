@@ -33,7 +33,8 @@ class App extends Component {
 
     const flip = {
       orientation,
-      fingerprint: { userAgent }
+      fingerprint: { userAgent },
+      created_at: firebase.database.ServerValue.TIMESTAMP
     }
 
     const newFlip = firebase.database().ref().child('flips').push().key
@@ -41,7 +42,7 @@ class App extends Component {
 
     updates['/flips/' + newFlip] = flip
 
-    return firebase.database().ref().update(updates)
+    // return firebase.database().ref().update(updates)
   }
 
   handleDeviceOrientation = (orientation) => {
@@ -69,11 +70,34 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const db = firebase.database()
-    let flips = db.ref('flips')
+    let flips = firebase.database().ref('flips')
 
     this.setState({
       ...this.state, flips: flips
+    })
+
+    firebase.auth().onAuthStateChanged((user) => {
+      // User is signed in.
+      if (user) {
+        const uid = user.uid
+
+        this.setState({
+          ...this.state, uid: uid
+        })
+
+        return
+      }
+
+      this.setState({
+        ...this.state, uid: false
+      })
+
+      // User is signed out, so create a new user
+      firebase.auth().signInAnonymously().catch((error) => {
+        const { code, message } = error
+
+        alert(`Error While Saving Anonymous ID: ${message} ${code}`)
+      })
     })
   }
 
