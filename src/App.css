@@ -23,6 +23,13 @@
   outline: solid 2px red;
 }
 
+.App-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 10%;
+}
+
 /* align rechart container to the left of the screen */
 .recharts-responsive-container > .recharts-wrapper {
   transform: translateX(-1em);

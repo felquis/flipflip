@@ -22,6 +22,7 @@ class App extends Component {
     this.state = {
       orientation: [],
       running: false,
+      flipCount: 0,
     }
 
     this.handleDeviceOrientation = this.handleDeviceOrientation.bind(this)
@@ -68,6 +69,16 @@ class App extends Component {
     })
   }
 
+  getFlipPoints() {
+    if (!this.state.uid) return
+
+    firebase.database().ref(`flips/${this.state.uid}`).on('child_added', (flips) => {
+      this.setState({
+        ...this.state, flipCount: this.state.flipCount + 1
+      })
+    })
+  }
+
   componentDidMount() {
     let flips = firebase.database().ref('flips')
 
@@ -83,6 +94,8 @@ class App extends Component {
         this.setState({
           ...this.state, uid: uid
         })
+
+        this.getFlipPoints()
 
         return
       }
@@ -107,11 +120,12 @@ class App extends Component {
       <div className="App">
         <DeviceOrientation do={this.handleDeviceOrientation} />
 
-        <p>
-          <button className="App-button" onClick={this.toggleRunning}>{running ? 'Stop': 'Start New Recording'} Trick</button>
-        </p>
+        <footer className="App-footer">
+          {this.state.flipCount} flips points
+          <button className="App-button" onClick={this.toggleRunning}>{running ? 'Stop Recording': 'Start New Recording'}</button>
+        </footer>
 
-        {!running && (<ResponsiveContainer height="100%" width="100%">
+        {!running && (<ResponsiveContainer height="90%" width="100%">
           <LineChart
             width={730}
             height={250}
