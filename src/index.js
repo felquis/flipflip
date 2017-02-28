@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Violeta from './components/Violeta'
+import './index.css'
 
 ReactDOM.render(
-  <App />,
+  <Violeta />,
   document.getElementById('root')
-);
+)

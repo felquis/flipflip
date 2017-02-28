@@ -1,0 +1,149 @@
+html,body,#root,.Violeta {
+  height: 100%;
+}
+
+.Violeta {
+  color: #000;
+  overflow: hidden;
+}
+
+.Violeta-options {
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.Violeta-options-item {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.Violeta-options-image {
+  width: 100%;
+  box-shadow: 0px 0px 5px black;
+  will-change: transform;
+  transition: transform 0.2s ease-in,
+              box-shadow 0.2s ease-in;
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.Violeta-options-image:hover {
+  transform: scale(1.1);
+  box-shadow: 1px 6px 20px black;
+  z-index: 1;
+}
+
+.Violeta-intro-background {
+  height: 100%;
+  z-index: 0;
+  background-position: center;
+  background-size: cover;
+  filter: blur(10px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: scale(1.5);
+}
+
+.background-green {
+  background-image: url('/background-green.jpg');
+}
+
+.background-view {
+  background-image: url('/background-view.jpg');
+}
+
+.background-sky {
+  background-image: url('/background-sky.jpg');
+}
+
+.Violeta-intro {
+  height: 100%;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+.Violeta-close {
+  background-color: #000;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: -2em;
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.Violeta-content-center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.Violeta-content {
+  background-color: #fff;
+  padding-top: 0em;
+  padding-left: 0em;
+  padding-right: 0em;
+  padding-bottom: 0em;
+  max-width: 800px;
+  position: relative;
+  box-shadow: 0 0 20px -5px black;
+}
+
+.Violeta-content-wrap {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.example-enter {
+  opacity: 0.01;
+  transform: translate(100px, 0);
+}
+
+.example-enter.example-enter-active {
+  transform: translate(0, 0);
+  opacity: 1;
+  transition: opacity 300ms ease-in,
+              transform 400ms ease-out;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+.Violeta-scroll {
+  overflow: auto;
+  max-height: 400px;
+}
+
+.Violeta-content img {
+  float: left;
+  width: 100%;
+  max-width: 400px;
+  margin-right: 1em;
+}
