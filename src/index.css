@@ -8,3 +8,16 @@ html, body, #root, .App {
   height: 100%;
   margin: 0;
 }
+
+.error-modal {
+  background-color: var(--color-danger);
+  color: var(--color-white);
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 3em;
+  align-items: center;
+}
+
+.error-modal h2 {
+  margin-right: 1em;
+}

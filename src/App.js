@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './App.css'
-import {DeviceOrientation} from 'react-event-components'
 import {
   LineChart,
   XAxis,
@@ -10,6 +9,7 @@ import {
   ResponsiveContainer
 } from 'recharts'
 
+// import TimeSeries from './Other'
 let orientationHistory = []
 
 class App extends Component {
@@ -17,6 +17,7 @@ class App extends Component {
     super()
     this.state = {
       snapShot: [],
+      showError: "",
       // orientation: [],
       running: false,
       flipCount: 0,
@@ -32,7 +33,16 @@ class App extends Component {
     })
 
     window.addEventListener('deviceorientation', this.handleDeviceOrientation, true)
+    setTimeout(this.checkOrientationChangeEvents, 2000)
     this.setSnapShot()
+  }
+
+  checkOrientationChangeEvents = () => {
+    if (this.state.snapShot.length < 10) {
+      this.setState({
+        showError: 'Orientation events doesn\'t work'
+      })
+    }
   }
 
   setSnapShot() {
@@ -40,6 +50,12 @@ class App extends Component {
 
     this.setState({
       snapShot: orientationHistory.slice(0, orientationHistory.length - 1)
+    })
+  }
+
+  onDismissHeaderError = () => {
+    this.setState({
+      showError: ''
     })
   }
 
@@ -75,8 +91,6 @@ class App extends Component {
 
     return (
       <div className="App">
-        {/* <DeviceOrientation do={this.handleDeviceOrientation} /> */}
-
         <footer className="App-footer">
           {snapShot.length}
           {/* <button className="App-button" onClick={this.toggleRunning}>
@@ -100,6 +114,14 @@ class App extends Component {
             <Line dataKey="gamma" stroke="red" animationDuration={0} dot={false}/>
           </LineChart>
         </ResponsiveContainer>
+
+        {this.state.showError &&
+          <div className="error-modal">
+            <h2>{this.state.showError}</h2>
+
+            <button onClick={this.onDismissHeaderError}>Close</button>
+          </div>
+        }
       </div>
     )
   }
